@@ -1,0 +1,5 @@
+1.
+if some layers need to back propagation,
+the gradient and the paramters should be saved to the list self.grad and self.para,
+or the optimizer could not find the object to do back propagation
+
