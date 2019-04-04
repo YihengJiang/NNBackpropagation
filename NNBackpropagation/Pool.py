@@ -4,6 +4,7 @@
 import numpy as np
 from LayerBase import LayerBase
 
+import os
 def _remove_padding(x, padding):
     """
     移除padding
