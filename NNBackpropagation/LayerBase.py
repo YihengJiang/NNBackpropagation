@@ -10,11 +10,13 @@ class LayerBase(metaclass=abc.ABCMeta):
     def __init__(self, *param, **kwargs):
         self.grad = []
 
-
     @abc.abstractmethod
     def forward(self, *param, **kwargs):
         pass
 
     @abc.abstractmethod
-    def backward(self, *param, **kwargs):
+    def backward(self, grad):
         pass
+
+    def __call__(self, *args, **kwargs):
+        return self.forward(*args, **kwargs)

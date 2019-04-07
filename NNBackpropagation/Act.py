@@ -41,5 +41,5 @@ class ReLU(LayerBase):
         self.y_grad = (x != 0).astype(float)
         return x
 
-    def backward(self):
-        return self.y_grad
+    def backward(self, grad):
+        return self.y_grad * grad

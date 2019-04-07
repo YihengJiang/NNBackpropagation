@@ -10,8 +10,8 @@ import abc
 
 
 class Optimizer(metaclass=abc.ABCMeta):
-    def __init__(self, net: list, lr, milestones, gamma: list):
-        self.net = net[::-1]  # reverse order
+    def __init__(self, net, lr, milestones, gamma: list):
+        self.net = net.layers[::-1]  # reverse order
         self.lr = lr
         self.milestones = milestones
         self.gamma = gamma
@@ -36,7 +36,7 @@ class Optimizer(metaclass=abc.ABCMeta):
 
 class SGD(Optimizer):
 
-    def __init__(self, net: list, lr, milestones, gamma: list):
+    def __init__(self, net, lr, milestones, gamma: list):
         super(SGD, self).__init__(net, lr, milestones, gamma)
 
     def step(self):

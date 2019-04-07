@@ -46,7 +46,7 @@ class CrossEntropyLoss(LayerBase):
 
         return ce
 
-    def backward(self):
+    def backward(self, grad):
         return self.x_grad
 
 
@@ -66,17 +66,18 @@ class SoftMaxCrossEntropyLoss(LayerBase):
         :return:
         '''
         # softmax
-        expX = np.exp(x)
+        # -max(x) if for "inf" case, the result is equvialent in mathmatic
+        expX = np.exp(x - np.max(x, axis=1, keepdims=True))
         sumExpX = np.sum(expX, axis=1, keepdims=True)
+        # grad
         soft = expX / sumExpX  # B*numInput
-        # ce
         ce = -np.log(soft[range(y.shape[0]), y])
         ce = np.mean(ce)
-        #grad
+
         soft[range(y.shape[0]), y] = soft[range(y.shape[0]), y] - 1
         self.x_grad = soft
 
         return ce
 
-    def backward(self):
+    def backward(self, grad):
         return self.x_grad
